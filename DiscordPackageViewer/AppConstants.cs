@@ -12,7 +12,7 @@ namespace DiscordPackageViewer;
 public static class AppConstants
 {
     /// <summary>GitHub repository URL.</summary>
-    public const string GitHubRepo = "https://github.com/PhoenixWyllow/DiscordPackageViewer";
+    public const string GitHubRepo = "https://github.com/LunaNuvola/DiscordPackageViewer";
 
     /// <summary>URL to open a new pre-filled bug report issue.</summary>
     public static string NewIssueUrl(string title, string body)
