@@ -1,8 +1,12 @@
 name: Deploy to GitHub Pages
 
 on:
-#   push:
-#     branches: [main]
+  pull_request:
+    branches: [main]
+    types: [closed]
+    paths:
+      - 'DiscordPackageViewer/**'
+
   workflow_dispatch:
 
 permissions:
@@ -16,6 +20,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
