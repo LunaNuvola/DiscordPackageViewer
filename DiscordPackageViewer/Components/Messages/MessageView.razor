@@ -54,7 +54,7 @@ else
                 <div class="message-group">
                     <div class="message-item">
                         <div class="message-timestamp">
-                            @(msg.ParsedTimestamp?.ToString("HH:mm") ?? "")
+                            @FormatTimestamp(msg.ParsedTimestamp)
                         </div>
                         <div>
                             <div class="message-content @(string.IsNullOrEmpty(msg.Contents) ? "empty-content" : "")">
@@ -78,9 +78,25 @@ else
 
 @code {
     [Parameter] public LoadedChannel? Channel { get; set; }
+    [Parameter] public bool Use24HourTime { get; set; } = true;
+    [Parameter] public bool ShowSeconds { get; set; }
 
     private string _messageSearch = "";
 
     /// <summary>Reset search when the channel changes.</summary>
     public void ResetSearch() => _messageSearch = "";
+
+    private string FormatTimestamp(DateTime? timestamp)
+    {
+        if (timestamp is null)
+        {
+            return "";
+        }
+
+        var format = Use24HourTime
+            ? (ShowSeconds ? "HH:mm:ss" : "HH:mm")
+            : (ShowSeconds ? "h:mm:ss tt" : "h:mm tt");
+
+        return timestamp.Value.ToString(format);
+    }
 }
