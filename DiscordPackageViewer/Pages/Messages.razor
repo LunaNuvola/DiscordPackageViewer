@@ -5,6 +5,10 @@
 
 <PageTitle>Messages — Discord Package Viewer</PageTitle>
 
+<div class="content-header">
+    💬 Messages
+</div>
+
 @if (Loader.Data is { } data)
 {
     <div class="messages-layout">
@@ -13,15 +17,54 @@
                         OnChannelSelected="SelectChannel" />
 
         <div class="messages-main">
-            <MessageView @ref="_messageView" Channel="@_selectedChannel" />
+            <div class="messages-toolbar" aria-label="Message timestamp display settings">
+                <div class="time-format-toggle" role="group" aria-label="Time format">
+                    <span class="time-format-label">Time</span>
+                    <div class="segment-group">
+                        <button type="button"
+                                class="segment-button @(!_use24HourTime ? "is-active" : string.Empty)"
+                                aria-pressed="@(!_use24HourTime)"
+                                @onclick="Set12Hour">
+                            12h
+                        </button>
+                        <button type="button"
+                                class="segment-button @(_use24HourTime ? "is-active" : string.Empty)"
+                                aria-pressed="@_use24HourTime"
+                                @onclick="Set24Hour">
+                            24h
+                        </button>
+                    </div>
+                </div>
+
+                <button type="button"
+                        class="seconds-toggle"
+                        aria-pressed="@_showSeconds"
+                        @onclick="ToggleSeconds">
+                    <span class="seconds-switch" aria-hidden="true">
+                        <span class="seconds-knob"></span>
+                    </span>
+                    Show seconds
+                </button>
+            </div>
+
+            <MessageView @ref="_messageView"
+                         Channel="@_selectedChannel"
+                         Use24HourTime="@_use24HourTime"
+                         ShowSeconds="@_showSeconds" />
         </div>
     </div>
+}
+else
+{
+    <p class="text-muted">No messages loaded.</p>
 }
 
 @code {
     private string? _selectedChannelId;
     private LoadedChannel? _selectedChannel;
     private MessageView? _messageView;
+    private bool _use24HourTime = true;
+    private bool _showSeconds;
 
     protected override void OnInitialized()
     {
@@ -37,5 +80,20 @@
         _selectedChannelId = channelId;
         _selectedChannel = Loader.Data?.Channels.GetValueOrDefault(channelId);
         _messageView?.ResetSearch();
+    }
+
+    private void Set12Hour()
+    {
+        _use24HourTime = false;
+    }
+
+    private void Set24Hour()
+    {
+        _use24HourTime = true;
+    }
+
+    private void ToggleSeconds()
+    {
+        _showSeconds = !_showSeconds;
     }
 }

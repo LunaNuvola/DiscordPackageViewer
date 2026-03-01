@@ -24,7 +24,7 @@
         <div class="stat-card">
             <span class="stat-label">Network Requests</span>
             <span class="stat-value" style="color: var(--text-positive);">Zero</span>
-            <span class="stat-sub">CSP blocks all outbound connections</span>
+            <span class="stat-sub">No code makes outbound requests</span>
         </div>
         <div class="stat-card">
             <span class="stat-label">Data Storage</span>
@@ -47,11 +47,12 @@
     <div class="card">
         <ul style="line-height: 2; padding-left: 20px; margin: 0;">
             <li><strong>ZIP Processing:</strong> Your Discord data package is read and extracted entirely in your browser using WebAssembly (compiled C#). The ZIP file never leaves your machine.</li>
-            <li><strong>Content Security Policy:</strong> The HTML page includes a strict CSP header that instructs your browser to block any outbound network connections (<code style="color: var(--text-link);">connect-src 'self'</code>). Even if a bug existed, the browser itself would block the request.</li>
+            <li><strong>Content Security Policy:</strong> A strict CSP with <code style="color: var(--text-link);">default-src 'none'</code> blocks all resource loading by default. Only the app's own scripts, styles, and fonts are explicitly allowed. Cross-origin network requests (<code style="color: var(--text-link);">connect-src 'self'</code>) are restricted to the hosting origin, and the server is static with nothing to receive data. JavaScript <code style="color: var(--text-link);">eval()</code> is blocked — only WebAssembly compilation is permitted.</li>
             <li><strong>No Persistent Storage:</strong> The app does not use localStorage, sessionStorage, IndexedDB, or cookies. When you close the tab, all data is immediately freed from memory.</li>
             <li><strong>No Service Worker:</strong> Nothing is cached between sessions.</li>
-            <li><strong>No Backend:</strong> When hosted on Azure Static Web Apps or GitHub Pages, the server only serves static HTML/CSS/JS files. There is no server-side code, no API endpoints, and no database.</li>
-            <li><strong>Permissions Policy:</strong> Camera, microphone, geolocation, and payment APIs are explicitly disabled.</li>
+            <li><strong>No Backend:</strong> When hosted on GitHub Pages, the server only serves static HTML/CSS/JS/WASM files. There is no server-side code, no API endpoints, and no database. Even same-origin requests have nowhere to go.</li>
+            <li><strong>Referrer Policy:</strong> Set to <code style="color: var(--text-link);">no-referrer</code> — your URL is never leaked when navigating away.</li>
+            <li><strong>Form Actions Blocked:</strong> <code style="color: var(--text-link);">form-action 'none'</code> prevents any form submission, so data cannot be posted to an external endpoint.</li>
             <li><strong>Open Source:</strong> You can audit every line of code yourself.</li>
         </ul>
     </div>
@@ -62,7 +63,7 @@
             <li>Open your browser's <strong>Developer Tools</strong> (F12)</li>
             <li>Go to the <strong>Network</strong> tab</li>
             <li>Load a Discord package and browse your data</li>
-            <li>Observe that <strong>zero network requests</strong> are made after the initial page load</li>
+            <li>Observe that <strong>zero network requests</strong> are made after the application finishes loading</li>
             <li>Check the <strong>Application</strong> tab → Storage: all sections should be empty</li>
         </ol>
     </div>

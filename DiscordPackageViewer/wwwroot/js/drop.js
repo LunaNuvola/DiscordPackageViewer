@@ -1,3 +1,11 @@
+// Dismiss the Blazor error overlay when the user clicks the close button.
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('#blazor-error-ui .dismiss')
+        ?.addEventListener('click', function () {
+            this.parentElement.style.display = 'none';
+        });
+});
+
 // Minimal JS interop for file drag-and-drop.
 // Blazor's DragEventArgs cannot access DataTransfer.files,
 // so we bridge dropped files to a hidden <InputFile> component.

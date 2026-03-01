@@ -1,0 +1,103 @@
+/* Message display */
+.message-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.message-group {
+    padding: 2px 16px;
+}
+
+.message-group:hover {
+    background-color: var(--bg-modifier-hover);
+}
+
+.message-item {
+    display: flex;
+    gap: 12px;
+    padding: 2px 0;
+    align-items: flex-start;
+}
+
+.message-timestamp {
+    flex-shrink: 0;
+    width: 78px;
+    padding-top: 2px;
+    padding-right: 8px;
+    border-right: 1px solid var(--border-subtle);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.message-item > div:last-child {
+    flex: 1;
+    min-width: 0;
+}
+
+.message-content {
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+    line-height: 1.375;
+    word-break: break-word;
+}
+
+.message-content.empty-content {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.message-attachment {
+    margin-top: 4px;
+    font-size: 0.8125rem;
+    color: var(--text-link);
+    word-break: break-all;
+}
+
+.message-date-divider {
+    display: flex;
+    align-items: center;
+    margin: 16px 16px 8px;
+    gap: 8px;
+}
+
+.message-date-divider::before,
+.message-date-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: var(--border-subtle);
+}
+
+.message-date-divider span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+}
+
+/* Search box */
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    background-color: var(--bg-tertiary);
+    border-radius: 4px;
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-family: inherit;
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+}

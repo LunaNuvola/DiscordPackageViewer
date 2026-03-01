@@ -5,7 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Security-Policy"
-          content="default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; connect-src 'self'; font-src 'self'; worker-src 'self' blob:; frame-src 'none'; object-src 'none';" />
+          content="default-src 'none'; script-src 'self' 'wasm-unsafe-eval' 'unsafe-inline' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; connect-src 'self'; font-src 'self'; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests;" />
+    <meta name="referrer" content="no-referrer" />
     <title>Discord Package Viewer</title>
     <base href="/" />
     <link rel="preload" id="webassembly" />
@@ -27,7 +28,7 @@
     <div id="blazor-error-ui">
         <span class="blazor-error-icon">❌</span>
         <span>Something went wrong. <a href="." class="reload">Reload the app</a></span>
-        <span class="dismiss" onclick="this.parentElement.style.display='none'">✕</span>
+        <span class="dismiss">✕</span>
     </div>
     <script src="js/drop.js"></script>
     <script src="js/resize.js"></script>
